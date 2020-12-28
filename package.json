@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "jsonserv": "json-server --watch database.json",
     "server": "nodemon index.js",
     "webpack": "cd ./client && npm start"
