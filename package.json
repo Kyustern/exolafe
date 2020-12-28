@@ -1,0 +1,24 @@
+{
+  "name": "exolafe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "jsonserv": "json-server --watch database.json",
+    "server": "nodemon index.js",
+    "webpack": "cd ./client && npm start"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "json-server": "^0.16.3",
+    "mongodb": "^3.6.3",
+    "react-redux": "^7.2.2"
+  },
+  "devDependencies": {
+    "@types/react-redux": "^7.1.14"
+  }
+}
