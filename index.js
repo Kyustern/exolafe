@@ -16,7 +16,7 @@ const { DBURL, ATLAS_ADMIN_PASSWORD, ATLAS_ADMIN_USERNAME } = process.env
 
 console.log("TCL: process.env.PORT", process.env.PORT)
 
-const PORT = process.env.port || 4000
+const PORT = process.env.PORT || 4000
 
 //App
 
