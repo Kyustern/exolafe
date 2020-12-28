@@ -14,6 +14,8 @@ const savedPokemons = new Set(["007", "011", "012"])
 //Processapp
 const { DBURL, ATLAS_ADMIN_PASSWORD, ATLAS_ADMIN_USERNAME } = process.env
 
+console.log("TCL: process.env", process.env)
+
 const PORT = process.env.port || 4000
 
 //App
