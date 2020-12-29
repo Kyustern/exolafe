@@ -4,6 +4,7 @@ const path = require('path');
 const express = require('express')
 const bodyParser = require('body-parser')
 const { MongoClient } = require("mongodb");
+const find = require("./sharedResolvers/find")
 
 const isBetween = (a, b, x) => {
     if (a > b) throw new Error('isBetween: b cannot be greater than a')
@@ -24,51 +25,29 @@ const app = express()
 
 app.use(bodyParser.json())
 
-app.use(express.static(__dirname + '/client/build'))
+app.use(express.static(__dirname + '/client/buildnull'))
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 });
 
 //API
 
-app.get('/api/', async (req, res) => {
-    
-    const client = new MongoClient(mongouri, {
-        useUnifiedTopology: true
-    })
-
+app.get('/api/saved/', async (req, res) => {
     try {
-        await client.connect()
-
-        const collection = client.db('exolafe').collection('pokemons')
-        
-        const queryOptions = {
-            projection: {
-                _id: 0,
-                id: 1,
-                name: 1,
-                type: 1,
-                img: 1,
-                saved: 1
-            }
-        }
-
-        const pokemonsArr = await collection
-            .find({}, queryOptions)
-            .toArray()
-        
-        const sortedPokemons = pokemonsArr.sort((a, b) => a.id - b.id)
-
-        res.send({
-            sortedPokemons
-        })
-        
+        const result = await find({saved: true})
+        res.send(result)
     } catch (error) {
-        console.log("TCL: error", error)
         res.sendStatus(500)
-    } finally {
-        await client.close()
+    }
+})
+
+app.get('/api/', async (req, res) => {
+    try {
+        const result = await find({})
+        res.send(result)
+    } catch (error) {
+        res.sendStatus(500)
     }
 })
 

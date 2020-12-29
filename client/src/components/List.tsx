@@ -17,9 +17,11 @@ export const List = () => {
     const { name, id, type, saved } = useSelector((state: RootState) => state.filter)
 
     useEffect(() => {
+        refetch()
+        const temp = saved ? 'saved/' : ''
         async function fetchPokes () {
             try {
-                const res = await axios.get('/api/')
+                const res = await axios.get(`/api/${temp}`)
                 setAllPokes(res.data.sortedPokemons)
             } catch (error) {
                 console.log(error);
@@ -28,7 +30,7 @@ export const List = () => {
             }
         }
         fetchPokes()
-    }, [])
+    }, [saved])
 
     const renderPokes = (arr: PokeData[]) => {
 
