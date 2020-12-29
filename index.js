@@ -1,8 +1,8 @@
 //Libs
 require('dotenv').config();
 const path = require('path');
+const express = require('express')
 const bodyParser = require('body-parser')
-const app = require('express')()
 const { MongoClient } = require("mongodb");
 
 const isBetween = (a, b, x) => {
@@ -12,23 +12,22 @@ const isBetween = (a, b, x) => {
 
 const savedPokemons = new Set(["007", "011", "012"])
 
-//Processapp
-const { DBURL, ATLAS_ADMIN_PASSWORD, ATLAS_ADMIN_USERNAME } = process.env
-
-console.log("TCL: process.env.PORT", process.env.PORT)
-
+//Process
+const { ATLAS_ADMIN_PASSWORD, ATLAS_ADMIN_USERNAME } = process.env
 const PORT = process.env.PORT || 4000
+const mongouri = `mongodb+srv://${ATLAS_ADMIN_USERNAME}:${ATLAS_ADMIN_PASSWORD}@iprefermysql.nzjl9.mongodb.net/exolafe?retryWrites=true&w=majority`
 
 //App
 
-const mongouri = `mongodb+srv://${ATLAS_ADMIN_USERNAME}:${ATLAS_ADMIN_PASSWORD}@iprefermysql.nzjl9.mongodb.net/exolafe?retryWrites=true&w=majority`
-console.log("TCL: mongouri", mongouri)
+const app = express()
+
 
 app.use(bodyParser.json())
 
+app.use(express.static(__dirname + '/client/build'))
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 });
 
 //API
