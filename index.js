@@ -22,10 +22,9 @@ const mongouri = `mongodb+srv://${ATLAS_ADMIN_USERNAME}:${ATLAS_ADMIN_PASSWORD}@
 
 const app = express()
 
-
 app.use(bodyParser.json())
 
-app.use(express.static(__dirname + '/client/buildnull'))
+app.use(express.static(__dirname + '/client/build'))
 
 app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
